@@ -63,7 +63,6 @@ public class ExampleTest
         testModBuf.insertBufElement(dataIn2);
 
         assertTrue(testModBuf.getCurrentSize() == 2);
-
     }
 
     /**
