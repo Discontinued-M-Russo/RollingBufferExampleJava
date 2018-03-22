@@ -1,8 +1,9 @@
 package com.mr.core.example;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
@@ -10,29 +11,14 @@ import java.util.Random;
  * Unit test for simple Example.
  */
 public class ExampleTest
-    extends TestCase
+    //extends TestCase
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public ExampleTest(String testName )
-    {
-        super( testName );
-    }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( ExampleTest.class );
-    }
 
     /**
      * Test Constructor
      */
+    @Test
     public void testConstruct()
     {
         ModifiedDoubleBuffer testModBuf = new ModifiedDoubleBuffer(1);
@@ -43,6 +29,7 @@ public class ExampleTest
     /**
      * Test Growth
      */
+    @Test
     public void testSizeGrowth()
     {
         ModifiedDoubleBuffer testModBuf = new ModifiedDoubleBuffer(2);
@@ -63,6 +50,7 @@ public class ExampleTest
     /**
      * Test Rolling
      */
+    @Test
     public void testRollingBuf()
     {
         ModifiedDoubleBuffer testModBuf = new ModifiedDoubleBuffer(2);
@@ -85,6 +73,7 @@ public class ExampleTest
     /**
      * Test Average
      */
+    @Test
     public void testAverage()
     {
         ModifiedDoubleBuffer testModBuf = new ModifiedDoubleBuffer(2);
@@ -96,21 +85,20 @@ public class ExampleTest
         testModBuf.insertBufElement(dataIn1);
 
         // buf = [dataIn1]
-        assertTrue(testModBuf.calcBufAverage() == dataIn1);
+        assertEquals(testModBuf.calcBufAverage(),dataIn1, 1e-9);
 
         double dataIn2 = rnd.nextDouble();
 
         // buf = [dataIn1 dataIn2]
         testModBuf.insertBufElement(dataIn2);
 
-        assertTrue(testModBuf.calcBufAverage() == ((dataIn1 + dataIn2)/2));
+        assertEquals(testModBuf.calcBufAverage(),((dataIn1 + dataIn2)/2),1e-9);
 
         double dataIn3 = rnd.nextDouble();
 
         // buf = [dataIn3 dataIn2]
         testModBuf.insertBufElement(dataIn3);
 
-        assertTrue(testModBuf.calcBufAverage() == ((dataIn3 + dataIn2)/2));
-
+        assertEquals(testModBuf.calcBufAverage(),((dataIn3 + dataIn2)/2),1e-9);
     }
 }
